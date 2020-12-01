@@ -34,33 +34,33 @@ class GuessingGame {
 		
 		int currentGameNum = 0;
 		Scanner input = new Scanner(System.in);
-		String[] basicInfo = getBasicInfo(input);
+		String[] basicInfo = getBasicInfo(input, messages);
 		User player = new User(basicInfo[0], basicInfo[1]);
 		
 		while (true) {
 			int numOfGuesses = 0;
-			System.out.println("Please choose a number for the game to get a random number between 0 and your number.");
+			System.out.println( messages.getString("chooseNum1") );
 			int userNum = input.nextInt();
 			Game currentGame = new Game(userNum, currentGameNum);
-			play(currentGame, input, numOfGuesses, player);
+			play(currentGame, input, numOfGuesses, player, messages);
 			player.updateStats(currentGame);
 			input.nextLine();
-			System.out.println("Would you like to play again?  \nType yes or no. \n");
+			System.out.println( messages.getString("playAgain") + "\n" + messages.getString("chooseYN") + "\n");
 			String response = input.nextLine();
 		
-			if (response.equals("no")) {
+			if (response.equals(messages.getString("no"))) {
 				break;
 			}
-			else if(response.equals("yes")) {
+			else if(response.equals(messages.getString("yes"))) {
 				continue;
 			}
 			else {
-				System.out.println("Sorry I did not understand your response, exiting game...");
+				System.out.println( messages.getString("understand"));
 				break;
 			}
 			
 		}
-		System.out.println(player.toStringStats());
+		System.out.println(player.toStringStats(messages));
 		input.close();
 		
 	}
@@ -70,12 +70,12 @@ class GuessingGame {
 	 * @param input
 	 * @return
 	 */
-	public static String[] getBasicInfo(Scanner input) {
+	public static String[] getBasicInfo(Scanner input, ResourceBundle messages) {
 		String[] basicInfo = new String[2];
-		System.out.println("Get ready to play the guessing game?");
-		System.out.println("\nPlease Type your language and press enter.");
+		System.out.println( messages.getString("basicInfo1") );
+		System.out.println( messages.getString("basicInfo2") );
 		basicInfo[0] = input.nextLine(); // language
-		System.out.println("\nPlease Type your name and press enter.");
+		System.out.println( messages.getString("basicInfo3") );
 		basicInfo[1] = input.nextLine(); // name
 		
 		return basicInfo;
@@ -85,28 +85,28 @@ class GuessingGame {
 	 * Play the guessing game with the user using recursion.
 	 * @param game
 	 */
-	public static void play(Game game, Scanner input, int numGuesses, User user) {
-		System.out.println("Guess a number between 0 and " + game.getUserChosenNum());
+	public static void play(Game game, Scanner input, int numGuesses, User user, ResourceBundle messages) {
+		System.out.println(messages.getString("guess") + " " + game.getUserChosenNum());
 		int currentGuess = input.nextInt();
 		if (currentGuess == game.getRandNum()) {
 			game.incrementGuessCount();
-			System.out.println("YOU WIN!");
+			System.out.println(messages.getString("win"));
 			user.addToAverage(game);
 			return;
 		}
 		else if (currentGuess < game.getRandNum() ) {
 			game.incrementGuessCount();
-			System.out.println("Sorry that number is too low, please try again.");
-			play(game, input, game.getNumGuesses(), user);
+			System.out.println(messages.getString("tooLow") + "\n");
+			play(game, input, game.getNumGuesses(), user, messages);
 		}
 		else if (currentGuess > game.getRandNum()) {
 			game.incrementGuessCount();
-			System.out.println("Sorry that number is too high, please try again.");
-			play(game, input, game.getNumGuesses(), user);
+			System.out.println(messages.getString("tooHigh") + "\n" );
+			play(game, input, game.getNumGuesses(), user, messages);
 		}
 		else {
-			System.out.println("Something seems to have gone wrong, please try again.");
-			play(game, input, game.getNumGuesses(), user);
+			System.out.println(messages.getString("problem"));
+			play(game, input, game.getNumGuesses(), user, messages);
 		}
 	}
 

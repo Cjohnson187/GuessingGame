@@ -1,6 +1,6 @@
 package com.chris.guess;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * class to store user information, will only need 1 instance.
@@ -128,10 +128,11 @@ public class User {
 	 * Method to print out the final stats.
 	 * @return
 	 */
-	public String toStringStats() {
-		return "You played " + avgList.size() + " games." + "\n" + "Of those games your best game took "
-				+ bestGameNumber + " tries and your worst game took " + worstGameNumber + " tries \n"
-				+ "Your average number of guesses for every game is " + getAverage() + "." + "\n\n"
-				+ "Thanks for playing!";
+	public String toStringStats(ResourceBundle messages) {
+		return messages.getString("final1") + " " + avgList.size() + " " + messages.getString("final2") + "\n" 
+				+ messages.getString("final3") + " " + bestGameNumber + " " + messages.getString("final4") + " " 
+				+ worstGameNumber + " " + messages.getString("final5")  + "\n" + messages.getString("final6") + " " + getAverage() 
+				+ "." + "\n\n" + messages.getString("final7");
+
 	}
 }
