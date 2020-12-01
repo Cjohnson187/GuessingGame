@@ -44,7 +44,7 @@ public class Game {
 	}
 	
 	/**
-	 * 
+	 * Method to get number of guesses for the current game.
 	 * @return
 	 */
 	public int getNumGuesses() {

@@ -13,8 +13,6 @@ public class User {
 	private String name;
 	private int bestGameNumber;
 	private int worstGameNumber = 0;
-	// private int numGamesPlayed = 0; //TODO Don't need this if i use the array
-	// size.
 	private ArrayList<Integer> avgList = new ArrayList<Integer>();
 
 	/**
@@ -45,24 +43,6 @@ public class User {
 	public void setWorstGameNumber(int gameNum) {
 		worstGameNumber = gameNum;
 	}
-
-	/*
-	 * //TODO get rid of this attribute, I can just use the size of the numOf
-	 * guesses array.
-	 *//**
-		 * Increment the number of games played but may not be necessary.
-		 */
-	/*
-	 * public void incrementNumGamesPlayed() { ++numGamesPlayed; }
-	 * 
-	 * //TODO probably dont need this either
-	 *//**
-		 * Returning the number of games played for the final results.
-		 * 
-		 * @return
-		 *//*
-			 * public int getNumGamesPlayed() { return numGamesPlayed; }
-			 */
 
 	/**
 	 * Best game number getter.
@@ -144,7 +124,10 @@ public class User {
 			bestGameNumber = game.getNumGuesses();
 		}
 	}
-
+	/**
+	 * Method to print out the final stats.
+	 * @return
+	 */
 	public String toStringStats() {
 		return "You played " + avgList.size() + " games." + "\n" + "Of those games your best game took "
 				+ bestGameNumber + " tries and your worst game took " + worstGameNumber + " tries \n"

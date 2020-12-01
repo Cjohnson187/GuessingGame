@@ -1,43 +1,34 @@
 package com.chris.guess;
 
-import com.chris.guess.User;
-import com.chris.guess.Game;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
 class GuessingGame {
-	
 	/**
-	 * The main method 
+	 * The main method gets the language(not how to internationalize) and name, then creates the user and game objects. 
+	 * It then calls the play method that uses recursion to update the counts and check if the guesses are correct
+	 * once the guess is correct it breaks back to the main to see if the user wants to play again. 
+	 * If the user does not want to play again. It will call the print method from the user object and print out the users game statistics.
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int currentGameNum = 0; //TODO prob not needed is i use the user object size of guess Array.
+		int currentGameNum = 0;
 		Scanner input = new Scanner(System.in);
 		String[] basicInfo = getBasicInfo(input);
 		User player = new User(basicInfo[0], basicInfo[1]);
-		ArrayList<Game> savedGames = new ArrayList<Game>();
 		
 		while (true) {
-			//player.incrementNumGamesPlayed();
-			int numOfGuesses = 0; // i don't think i need this because the game object tracks number of guesses.
-			
+			int numOfGuesses = 0;
 			System.out.println("Please choose a number for the game to get a random number between 0 and your number.");
 			int userNum = input.nextInt();
 			Game currentGame = new Game(userNum, currentGameNum);
 			play(currentGame, input, numOfGuesses, player);
-			
-			//savedGames.add(currentGame); //TODO dont need it
-			
 			player.updateStats(currentGame);
 			input.nextLine();
 			System.out.println("Would you like to play again?  \nType yes or no. \n");
 			String response = input.nextLine();
-			
-			System.out.println(response); // testing next line
-			
+		
 			if (response.equals("no")) {
 				break;
 			}
@@ -63,10 +54,6 @@ class GuessingGame {
 	public static String[] getBasicInfo(Scanner input) {
 		String[] basicInfo = new String[2];
 		System.out.println("Get ready to play the guessing game?");
-		
-		/*
-		 * 		*probably need internationalization before this in separate file of strings
-		 */
 		System.out.println("\nPlease Type your language and press enter.");
 		basicInfo[0] = input.nextLine(); // language
 		System.out.println("\nPlease Type your name and press enter.");
@@ -103,17 +90,5 @@ class GuessingGame {
 			play(game, input, game.getNumGuesses(), user);
 		}
 	}
-			
-
-	
-	/**
-	 * Method to update players stats with last game played.
-	 * @param currentGame
-	 */
-	public static void printStats() {
-		System.out.println();
-	}
-	
-	
 
 }
